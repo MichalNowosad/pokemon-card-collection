@@ -9,6 +9,11 @@ namespace PokemonCardCollection.Domain.Entities
 {
     public class PokemonCard : Card
     {
+        public PokemonCard()
+        {
+            CardType = CardType.Pokemon;
+        }
+
         public int HealthPoints { get; set; }
         public string PokemonDescription { get; set; } = string.Empty;
         public EnergyType EnergyType { get; set; }
