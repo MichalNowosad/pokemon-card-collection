@@ -5,7 +5,7 @@ namespace PokemonCardCollection.Domain.Entities
 {
     public class Card : EntityWithFile
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int Number { get; set; }
         public CardRarity Rarity { get; set; }
         public CardType CardType { get; set; }
