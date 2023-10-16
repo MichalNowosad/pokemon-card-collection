@@ -1,9 +1,8 @@
-﻿using PokemonCardCollection.Domain.Common;
-
-namespace PokemonCardCollection.Domain.Entities
+﻿namespace PokemonCardCollection.Application.Features.Expansions.Commands.UpdateExpansion
 {
-    public class Expansion : EntityWithFile
+    public class UpdateExpansionDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int CardsAmount { get; set; }
         public DateTime ReleaseDate { get; set; }

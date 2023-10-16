@@ -1,8 +1,6 @@
-﻿using PokemonCardCollection.Domain.Common;
-
-namespace PokemonCardCollection.Domain.Entities
+﻿namespace PokemonCardCollection.Application.Features.Expansions.Commands.CreateExpansion
 {
-    public class Expansion : EntityWithFile
+    public class CreateExpansionDto
     {
         public string Name { get; set; } = string.Empty;
         public int CardsAmount { get; set; }
