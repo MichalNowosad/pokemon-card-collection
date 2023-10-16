@@ -24,7 +24,7 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
 
             var cardAttacks = await _cardAttackRepository.GetByIds(pokemonCardDto.AttackIds).ToListAsync();
 
-            var pokemonCard = new PokemonCard
+            var pokemonCardToCreate = new PokemonCard
             {
                 Name = pokemonCardDto.Name,
                 Number = pokemonCardDto.Number,
@@ -38,10 +38,10 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
                 Attacks = cardAttacks
             };
 
-            await _pokemonCardRepository.CreateAsync(pokemonCard);
+            await _pokemonCardRepository.CreateAsync(pokemonCardToCreate);
             await _pokemonCardRepository.SaveChangesAsync();
 
-            return pokemonCard.Id;
+            return pokemonCardToCreate.Id;
         }
     }
 }
