@@ -29,7 +29,6 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
                 Name = pokemonCardDto.Name,
                 Number = pokemonCardDto.Number,
                 Rarity = pokemonCardDto.Rarity,
-                CardType = CardType.Pokemon,
                 ExpansionId = pokemonCardDto.ExpansionId,
                 IllustratorId = pokemonCardDto.IllustratorId,
                 HealthPoints = pokemonCardDto.HealthPoints,
@@ -39,7 +38,10 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
                 Attacks = cardAttacks
             };
 
-            return await _pokemonCardRepository.CreateAsync(pokemonCard);
+            await _pokemonCardRepository.CreateAsync(pokemonCard);
+            await _pokemonCardRepository.SaveChangesAsync();
+
+            return pokemonCard.Id;
         }
     }
 }
