@@ -1,9 +1,13 @@
 ﻿using MediatR;
+using PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCardAbility.Validators;
+using PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCardAbility;
 using PokemonCardCollection.Application.Interfaces.Persistence;
+using System.Net;
+using PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard.Validators;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard
 {
-    public class UpdateTrainerCardCommandHandler : IRequestHandler<UpdateTrainerCardCommand>
+    public class UpdateTrainerCardCommandHandler : IRequestHandler<UpdateTrainerCardCommand, UpdateTrainerCardCommandResponse>
     {
         private readonly ITrainerCardRepository _trainerCardRepository;
 
@@ -12,8 +16,17 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTraine
             _trainerCardRepository = trainerCardRepository ?? throw new ArgumentNullException(nameof(trainerCardRepository));
         }
 
-        public async Task Handle(UpdateTrainerCardCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateTrainerCardCommandResponse> Handle(UpdateTrainerCardCommand request, CancellationToken cancellationToken)
         {
+            var validator = new UpdateTrainerCardCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                var validationErrorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                return new UpdateTrainerCardCommandResponse(HttpStatusCode.UnprocessableEntity, validationErrorMessages);
+            }
+
             var trainerCardDto = request.TrainerCard;
 
             var trainerCardToUpdate = await _trainerCardRepository.GetAsync(trainerCardDto.Id);
@@ -29,6 +42,8 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTraine
 
                 await _trainerCardRepository.SaveChangesAsync();
             }
+
+            return new UpdateTrainerCardCommandResponse();
         }
     }
 }
