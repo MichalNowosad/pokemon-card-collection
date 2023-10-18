@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using PokemonCardCollection.Application.Features.CardAttacks.Commands.CreateCardAttack.Validators;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using PokemonCardCollection.Domain.Entities;
+using System.Net;
 
 namespace PokemonCardCollection.Application.Features.CardAttacks.Commands.CreateCardAttack
 {
-    public class CreateCardAttackCommandHandler : IRequestHandler<CreateCardAttackCommand, Guid>
+    public class CreateCardAttackCommandHandler : IRequestHandler<CreateCardAttackCommand, CreateCardAttackCommandResponse>
     {
         private readonly ICardAttackRepository _cardAttackRepository;
 
@@ -13,8 +15,17 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Commands.Create
             _cardAttackRepository = cardAttackRepository ?? throw new ArgumentNullException(nameof(cardAttackRepository));
         }
 
-        public async Task<Guid> Handle(CreateCardAttackCommand request, CancellationToken cancellationToken)
+        public async Task<CreateCardAttackCommandResponse> Handle(CreateCardAttackCommand request, CancellationToken cancellationToken)
         {
+            var validator = new CreateCardAttackCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                var validationErrorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                return new CreateCardAttackCommandResponse(HttpStatusCode.UnprocessableEntity, validationErrorMessages);
+            }
+
             var cardAttackDto = request.CardAttack;
 
             var cardAttackToCreate = new CardAttack
@@ -27,7 +38,7 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Commands.Create
             await _cardAttackRepository.CreateAsync(cardAttackToCreate);
             await _cardAttackRepository.SaveChangesAsync();
 
-            return cardAttackToCreate.Id;
+            return new CreateCardAttackCommandResponse();
         }
     }
 }

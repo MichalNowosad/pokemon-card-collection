@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using PokemonCardCollection.Application.Features.CardAbilities.Commands.CreateCardAbility.Validators;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using PokemonCardCollection.Domain.Entities;
+using System.Net;
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.CreateCardAbility
 {
-    public class CreateCardAbilityCommandHandler : IRequestHandler<CreateCardAbilityCommand, Guid>
+    public class CreateCardAbilityCommandHandler : IRequestHandler<CreateCardAbilityCommand, CreateCardAbilityCommandResponse>
     {
         private readonly ICardAbilityRepository _cardAbilityRepository;
 
@@ -13,8 +15,17 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.Crea
             _cardAbilityRepository = cardAbilityRepository ?? throw new ArgumentNullException(nameof(cardAbilityRepository));
         }
 
-        public async Task<Guid> Handle(CreateCardAbilityCommand request, CancellationToken cancellationToken)
+        public async Task<CreateCardAbilityCommandResponse> Handle(CreateCardAbilityCommand request, CancellationToken cancellationToken)
         {
+            var validator = new CreateCardAbilityCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                var validationErrorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                return new CreateCardAbilityCommandResponse(HttpStatusCode.UnprocessableEntity, validationErrorMessages);
+            }
+
             var cardAbilityDto = request.CardAbility;
 
             var cardAbilityToCreate = new CardAbility
@@ -26,7 +37,7 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.Crea
             await _cardAbilityRepository.CreateAsync(cardAbilityToCreate);
             await _cardAbilityRepository.SaveChangesAsync();
 
-            return cardAbilityToCreate.Id;
+            return new CreateCardAbilityCommandResponse();
         }
     }
 }

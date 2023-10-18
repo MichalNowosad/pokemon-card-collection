@@ -2,8 +2,8 @@
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.CreateCardAbility
 {
-    public class CreateCardAbilityCommand : IRequest<Guid>
+    public class CreateCardAbilityCommand : IRequest<CreateCardAbilityCommandResponse>
     {
-        public CreateCardAbilityDto? CardAbility { get; set; }
+        public CreateCardAbilityDto CardAbility { get; set; } = new CreateCardAbilityDto();
     }
 }

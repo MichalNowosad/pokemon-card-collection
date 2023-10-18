@@ -14,6 +14,6 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemo
         public string PokemonDescription { get; set; } = string.Empty;
         public EnergyType EnergyType { get; set; }
         public Guid AbilityId { get; set; }
-        public IEnumerable<Guid>? AttackIds { get; set; }
+        public IEnumerable<Guid> AttackIds { get; set; } = new List<Guid>();
     }
 }

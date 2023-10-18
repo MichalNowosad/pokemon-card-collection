@@ -2,8 +2,8 @@
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemonCard
 {
-    public class UpdatePokemonCardCommand : IRequest
+    public class UpdatePokemonCardCommand : IRequest<UpdatePokemonCardCommandResponse>
     {
-        public UpdatePokemonCardDto? PokemonCard { get; set; }
+        public UpdatePokemonCardDto PokemonCard { get; set; } = new UpdatePokemonCardDto();
     }
 }

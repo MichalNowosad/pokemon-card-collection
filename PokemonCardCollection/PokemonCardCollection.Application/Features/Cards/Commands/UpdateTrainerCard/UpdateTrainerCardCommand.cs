@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard
 {
-    public class UpdateTrainerCardCommand : IRequest
+    public class UpdateTrainerCardCommand : IRequest<UpdateTrainerCardCommandResponse>
     {
-        public UpdateTrainerCardDto? TrainerCard { get; set; }
+        public UpdateTrainerCardDto TrainerCard { get; set; } = new UpdateTrainerCardDto();
     }
 }

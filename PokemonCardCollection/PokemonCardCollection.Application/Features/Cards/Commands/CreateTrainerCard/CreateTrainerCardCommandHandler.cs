@@ -1,10 +1,14 @@
 ﻿using MediatR;
+using PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard.Validators;
+using PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using PokemonCardCollection.Domain.Entities;
+using System.Net;
+using PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard.Validators;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard
 {
-    public class CreateTrainerCardCommandHandler : IRequestHandler<CreateTrainerCardCommand, Guid>
+    public class CreateTrainerCardCommandHandler : IRequestHandler<CreateTrainerCardCommand, CreateTrainerCardCommandResponse>
     {
         private readonly ITrainerCardRepository _trainerCardRepository;
 
@@ -13,8 +17,17 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTraine
             _trainerCardRepository = trainerCardRepository ?? throw new ArgumentNullException(nameof(trainerCardRepository));
         }
 
-        public async Task<Guid> Handle(CreateTrainerCardCommand request, CancellationToken cancellationToken)
+        public async Task<CreateTrainerCardCommandResponse> Handle(CreateTrainerCardCommand request, CancellationToken cancellationToken)
         {
+            var validator = new CreateTrainerCardCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                var validationErrorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                return new CreateTrainerCardCommandResponse(HttpStatusCode.UnprocessableEntity, validationErrorMessages);
+            }
+
             var trainerCardDto = request.TrainerCard;
 
             var trainerCardToCreate = new TrainerCard
@@ -30,7 +43,7 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTraine
             await _trainerCardRepository.CreateAsync(trainerCardToCreate);
             await _trainerCardRepository.SaveChangesAsync();
 
-            return trainerCardToCreate.Id;
+            return new CreateTrainerCardCommandResponse();
         }
     }
 }
