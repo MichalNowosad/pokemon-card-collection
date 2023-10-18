@@ -3,11 +3,11 @@
     public interface IRepositoryBase<T> where T : class
     {
         IQueryable<T> GetAllAsync();
-        Task<T> GetAsync(Guid id);
-        Task<Guid> CreateAsync(T entity);
-        Task UpdateAsync(T entity);
+        Task<T?> GetAsync(Guid id);
+        Task CreateAsync(T entity);
+        void Update(T entity);
         Task DeleteAsync(Guid id);
-        Task DeleteAsync(T entity);
+        void Delete(T entity);
         Task SaveChangesAsync();
     }
 }
