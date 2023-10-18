@@ -1,14 +1,9 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCardAbility
 {
-    public class UpdateCardAbilityCommand : IRequest
+    public class UpdateCardAbilityCommand : IRequest<UpdateCardAbilityCommandResponse>
     {
-        public UpdateCardAbilityDto CardAbility { get; set; }
+        public UpdateCardAbilityDto CardAbility { get; set; } = new UpdateCardAbilityDto();
     }
 }
