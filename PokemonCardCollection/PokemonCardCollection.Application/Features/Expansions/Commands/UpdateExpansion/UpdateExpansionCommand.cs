@@ -2,8 +2,8 @@
 
 namespace PokemonCardCollection.Application.Features.Expansions.Commands.UpdateExpansion
 {
-    public class UpdateExpansionCommand : IRequest
+    public class UpdateExpansionCommand : IRequest<UpdateExpansionCommandResponse>
     {
-        public UpdateExpansionDto? Expansion { get; set; }
+        public UpdateExpansionDto Expansion { get; set; } = new UpdateExpansionDto();
     }
 }
