@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Commands.Upda
 {
     public class UpdateCardAbilityCommand : IRequest<UpdateCardAbilityCommandResponse>
     {
-        public UpdateCardAbilityDto CardAbility { get; set; } = new UpdateCardAbilityDto();
+        public UpdateCardAbilityCommand(UpdateCardAbilityDto cardAbility)
+        {
+            CardAbility = cardAbility;
+        }
+
+        public UpdateCardAbilityDto CardAbility { get; set; }
     }
 }

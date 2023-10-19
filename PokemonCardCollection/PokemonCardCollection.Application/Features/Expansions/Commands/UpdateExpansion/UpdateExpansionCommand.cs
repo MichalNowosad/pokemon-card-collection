@@ -1,17 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace PokemonCardCollection.Application.Features.Expansions.Commands.UpdateExpansion
 {
     public class UpdateExpansionCommand : IRequest<UpdateExpansionCommandResponse>
     {
-        public UpdateExpansionCommand(UpdateExpansionDto expansion, IFormFile expansionImage)
+        public UpdateExpansionCommand(IFormCollection form)
         {
-            Expansion = expansion;
-            ExpansionImage = expansionImage;
+            Expansion = JsonConvert.DeserializeObject<UpdateExpansionDto>(form["expansion"].ToString()) ?? new UpdateExpansionDto();
+            ExpansionImage = form.Files[0];
         }
 
-        public UpdateExpansionDto Expansion { get; set; } = new UpdateExpansionDto();
+        public UpdateExpansionDto Expansion { get; set; }
         public IFormFile ExpansionImage { get; set; }
     }
 }

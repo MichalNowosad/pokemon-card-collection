@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Commands.Update
 {
     public class UpdateCardAttackCommand : IRequest<UpdateCardAttackCommandResponse>
     {
-        public UpdateCardAttackDto CardAttack { get; set; } = new UpdateCardAttackDto();
+        public UpdateCardAttackCommand(UpdateCardAttackDto cardAttack)
+        {
+            CardAttack = cardAttack;
+        }
+
+        public UpdateCardAttackDto CardAttack { get; set; }
     }
 }

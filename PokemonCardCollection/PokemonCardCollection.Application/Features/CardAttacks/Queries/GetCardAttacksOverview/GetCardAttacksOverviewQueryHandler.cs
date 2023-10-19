@@ -4,16 +4,16 @@ using PokemonCardCollection.Application.Interfaces.Persistence;
 
 namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCardAttacksOverview
 {
-    public class GetCardAttacksOverviewCommandHandler : IRequestHandler<GetCardAttacksOverviewCommand, IEnumerable<CardAttackOverviewDto>>
+    public class GetCardAttacksOverviewQueryHandler : IRequestHandler<GetCardAttacksOverviewQuery, IEnumerable<CardAttackOverviewDto>>
     {
         private readonly ICardAttackRepository _cardAttackRepository;
 
-        public GetCardAttacksOverviewCommandHandler(ICardAttackRepository cardAttackRepository)
+        public GetCardAttacksOverviewQueryHandler(ICardAttackRepository cardAttackRepository)
         {
             _cardAttackRepository = cardAttackRepository ?? throw new ArgumentNullException(nameof(cardAttackRepository));
         }
 
-        public async Task<IEnumerable<CardAttackOverviewDto>> Handle(GetCardAttacksOverviewCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CardAttackOverviewDto>> Handle(GetCardAttacksOverviewQuery request, CancellationToken cancellationToken)
         {
             var cardAttacks = _cardAttackRepository.GetAllAsync();
 

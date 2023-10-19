@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpan
 {
     public class GetExpansionDetailsQuery : IRequest<ExpansionDetailsDto>
     {
+        public GetExpansionDetailsQuery(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; set; }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard
 {
     public class UpdateTrainerCardCommand : IRequest<UpdateTrainerCardCommandResponse>
     {
-        public UpdateTrainerCardCommand(UpdateTrainerCardDto trainerCard, IFormFile trainerCardImage)
+        public UpdateTrainerCardCommand(IFormCollection form)
         {
-            TrainerCard = trainerCard;
-            TrainerCardImage = trainerCardImage;
+            TrainerCard = JsonConvert.DeserializeObject<UpdateTrainerCardDto>(form["pokemonCard"].ToString()) ?? new UpdateTrainerCardDto();
+            TrainerCardImage = form.Files[0];
         }
 
         public UpdateTrainerCardDto TrainerCard { get; set; }
