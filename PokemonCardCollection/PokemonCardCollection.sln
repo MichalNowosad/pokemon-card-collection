@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Appli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Domain", "PokemonCardCollection.Domain\PokemonCardCollection.Domain.csproj", "{E5E196C2-4722-4787-91B9-491476CC5816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonCardCollection.Persistence", "PokemonCardCollection.Persistence\PokemonCardCollection.Persistence.csproj", "{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Persistence", "PokemonCardCollection.Persistence\PokemonCardCollection.Persistence.csproj", "{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonCardCollection.Infrastructure", "PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj", "{BA176A17-2377-4230-BF1A-85E32EB2FC44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{1CDB947D-9462-4585-BFA3-67EA897125A7} = {0D69F312-D79F-477A-8E94-E32BDFEA6A47}
 		{E5E196C2-4722-4787-91B9-491476CC5816} = {0D69F312-D79F-477A-8E94-E32BDFEA6A47}
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
+		{BA176A17-2377-4230-BF1A-85E32EB2FC44} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C0D9546-9A6F-4DE9-AABC-3C4C1F64267C}

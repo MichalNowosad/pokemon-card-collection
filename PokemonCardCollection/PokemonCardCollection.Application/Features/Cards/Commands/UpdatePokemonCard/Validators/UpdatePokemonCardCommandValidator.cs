@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PokemonCardCollection.Application.Constants;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemonCard.Validators
 {
@@ -14,6 +9,9 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemo
         {
             RuleFor(x => x.PokemonCard)
                 .SetValidator(new UpdatePokemonCardDtoValidator());
+
+            RuleFor(x => x.PokemonCardImage)
+                .NotNull().WithMessage(ValidationConstants.FileNotUploadedErrorMessage);
         }
     }
 }

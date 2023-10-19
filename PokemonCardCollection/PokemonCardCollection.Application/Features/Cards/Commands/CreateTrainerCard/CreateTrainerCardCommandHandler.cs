@@ -1,20 +1,23 @@
 ﻿using MediatR;
-using PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard.Validators;
-using PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard;
+using PokemonCardCollection.Application.Constants;
+using PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard.Validators;
+using PokemonCardCollection.Application.Interfaces.Infrastructure;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using PokemonCardCollection.Domain.Entities;
 using System.Net;
-using PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard.Validators;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTrainerCard
 {
     public class CreateTrainerCardCommandHandler : IRequestHandler<CreateTrainerCardCommand, CreateTrainerCardCommandResponse>
     {
         private readonly ITrainerCardRepository _trainerCardRepository;
+        private readonly IFileService _fileService;
 
-        public CreateTrainerCardCommandHandler(ITrainerCardRepository trainerCardRepository)
+        public CreateTrainerCardCommandHandler(ITrainerCardRepository trainerCardRepository,
+            IFileService fileService)
         {
             _trainerCardRepository = trainerCardRepository ?? throw new ArgumentNullException(nameof(trainerCardRepository));
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task<CreateTrainerCardCommandResponse> Handle(CreateTrainerCardCommand request, CancellationToken cancellationToken)
@@ -30,6 +33,8 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTraine
 
             var trainerCardDto = request.TrainerCard;
 
+            var fileNameDto = await _fileService.SaveFile(request.TrainerCardImage, FileConstants.CardFolderName);
+
             var trainerCardToCreate = new TrainerCard
             {
                 Name = trainerCardDto.Name,
@@ -37,7 +42,9 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreateTraine
                 EffectDescription = trainerCardDto.EffectDescription,
                 Rarity = trainerCardDto.Rarity,
                 ExpansionId = trainerCardDto.ExpansionId,
-                IllustratorId = trainerCardDto.IllustratorId
+                IllustratorId = trainerCardDto.IllustratorId,
+                FileName = fileNameDto.FileName,
+                DisplayFileName = fileNameDto.DisplayFileName
             };
 
             await _trainerCardRepository.CreateAsync(trainerCardToCreate);

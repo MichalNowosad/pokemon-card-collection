@@ -4,16 +4,21 @@ using PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCa
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using System.Net;
 using PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard.Validators;
+using PokemonCardCollection.Application.Constants;
+using PokemonCardCollection.Application.Interfaces.Infrastructure;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard
 {
     public class UpdateTrainerCardCommandHandler : IRequestHandler<UpdateTrainerCardCommand, UpdateTrainerCardCommandResponse>
     {
         private readonly ITrainerCardRepository _trainerCardRepository;
+        private readonly IFileService _fileService;
 
-        public UpdateTrainerCardCommandHandler(ITrainerCardRepository trainerCardRepository)
+        public UpdateTrainerCardCommandHandler(ITrainerCardRepository trainerCardRepository,
+            IFileService fileService)
         {
             _trainerCardRepository = trainerCardRepository ?? throw new ArgumentNullException(nameof(trainerCardRepository));
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task<UpdateTrainerCardCommandResponse> Handle(UpdateTrainerCardCommand request, CancellationToken cancellationToken)
@@ -33,12 +38,17 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTraine
 
             if (trainerCardToUpdate != null)
             {
+                _fileService.DeleteFile(trainerCardToUpdate.FileName, FileConstants.CardFolderName);
+                var fileNameDto = await _fileService.SaveFile(request.TrainerCardImage, FileConstants.CardFolderName);
+
                 trainerCardToUpdate.Name = trainerCardDto.Name;
                 trainerCardToUpdate.Number = trainerCardDto.Number;
                 trainerCardToUpdate.EffectDescription = trainerCardDto.EffectDescription;
                 trainerCardToUpdate.Rarity = trainerCardDto.Rarity;
                 trainerCardToUpdate.ExpansionId = trainerCardDto.ExpansionId;
                 trainerCardToUpdate.IllustratorId = trainerCardDto.IllustratorId;
+                trainerCardToUpdate.FileName = fileNameDto.FileName;
+                trainerCardToUpdate.DisplayFileName = fileNameDto.DisplayFileName;
 
                 await _trainerCardRepository.SaveChangesAsync();
             }

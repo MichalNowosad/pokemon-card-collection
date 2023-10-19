@@ -10,5 +10,6 @@ namespace PokemonCardCollection.Application.Constants
     {
         public const string ValueEmptyErrorMessage = "{PropertyName} is required.";
         public const string MaxLengthErrorMessage = "{PropertyName} must not exceed {MaxLength} characters.";
+        public const string FileNotUploadedErrorMessage = "There was no file uploaded.";
     }
 }
