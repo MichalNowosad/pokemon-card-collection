@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PokemonCardCollection.Application\PokemonCardCollection.Application.csproj" />
+    <ProjectReference Include="..\PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj" />
+    <ProjectReference Include="..\PokemonCardCollection.Persistence\PokemonCardCollection.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

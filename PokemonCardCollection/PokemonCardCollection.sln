@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Persistence", "PokemonCardCollection.Persistence\PokemonCardCollection.Persistence.csproj", "{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonCardCollection.Infrastructure", "PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj", "{BA176A17-2377-4230-BF1A-85E32EB2FC44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Infrastructure", "PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj", "{BA176A17-2377-4230-BF1A-85E32EB2FC44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonCardCollection.Api", "PokemonCardCollection.Api\PokemonCardCollection.Api.csproj", "{DBB3D61D-B247-4164-889D-954928D56F76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA176A17-2377-4230-BF1A-85E32EB2FC44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBB3D61D-B247-4164-889D-954928D56F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBB3D61D-B247-4164-889D-954928D56F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBB3D61D-B247-4164-889D-954928D56F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBB3D61D-B247-4164-889D-954928D56F76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{E5E196C2-4722-4787-91B9-491476CC5816} = {0D69F312-D79F-477A-8E94-E32BDFEA6A47}
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
 		{BA176A17-2377-4230-BF1A-85E32EB2FC44} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
+		{DBB3D61D-B247-4164-889D-954928D56F76} = {1232AE7E-1AEE-43E3-B24F-1A65938B7B90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C0D9546-9A6F-4DE9-AABC-3C4C1F64267C}
