@@ -1,6 +1,8 @@
-﻿namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpansionDetails
+﻿using PokemonCardCollection.Application.Models.File;
+
+namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpansionDetails
 {
-    public class ExpansionDetailsDto
+    public class ExpansionDetailsDto : FileDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

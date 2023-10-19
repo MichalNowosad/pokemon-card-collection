@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PokemonCardCollection.Application.Features.CardAbilities.Commands.CreateCardAbility;
-using PokemonCardCollection.Application.Features.CardAbilities.Commands.CreateCardAbility.Validators;
+using PokemonCardCollection.Application.Constants;
 using PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard.Validators;
+using PokemonCardCollection.Application.Interfaces.Infrastructure;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using PokemonCardCollection.Domain.Entities;
-using PokemonCardCollection.Domain.Enums;
 using System.Net;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemonCard
@@ -14,12 +13,15 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
     {
         private readonly IPokemonCardRepository _pokemonCardRepository;
         private readonly ICardAttackRepository _cardAttackRepository;
+        private readonly IFileService _fileService;
 
         public CreatePokemonCardCommandHandler(IPokemonCardRepository pokemonCardRepository,
-            ICardAttackRepository cardAttackRepository)
+            ICardAttackRepository cardAttackRepository,
+            IFileService fileService)
         {
             _pokemonCardRepository = pokemonCardRepository ?? throw new ArgumentNullException(nameof(pokemonCardRepository));
             _cardAttackRepository = cardAttackRepository ?? throw new ArgumentNullException(nameof(cardAttackRepository));
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task<CreatePokemonCardCommandResponse> Handle(CreatePokemonCardCommand request, CancellationToken cancellationToken)
@@ -37,6 +39,8 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
 
             var cardAttacks = await _cardAttackRepository.GetByIds(pokemonCardDto.AttackIds).ToListAsync(cancellationToken);
 
+            var fileNameDto = await _fileService.SaveFile(request.PokemonCardImage, FileConstants.CardFolderName);
+
             var pokemonCardToCreate = new PokemonCard
             {
                 Name = pokemonCardDto.Name,
@@ -48,8 +52,13 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.CreatePokemo
                 PokemonDescription = pokemonCardDto.PokemonDescription,
                 EnergyType = pokemonCardDto.EnergyType,
                 AbilityId = pokemonCardDto.AbilityId,
-                Attacks = cardAttacks
+                Attacks = cardAttacks,
+                FileName = fileNameDto.FileName,
+                DisplayFileName = fileNameDto.DisplayFileName
             };
+
+            await _pokemonCardRepository.CreateAsync(pokemonCardToCreate);
+            await _pokemonCardRepository.SaveChangesAsync();
 
             return new CreatePokemonCardCommandResponse();
         }

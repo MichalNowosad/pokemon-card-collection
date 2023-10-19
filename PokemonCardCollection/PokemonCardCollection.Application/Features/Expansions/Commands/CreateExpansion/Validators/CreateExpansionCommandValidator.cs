@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using PokemonCardCollection.Application.Constants;
 
 namespace PokemonCardCollection.Application.Features.Expansions.Commands.CreateExpansion.Validators
 {
@@ -8,6 +9,9 @@ namespace PokemonCardCollection.Application.Features.Expansions.Commands.CreateE
         {
             RuleFor(x => x.Expansion)
                 .SetValidator(new CreateExpansionDtoValidator());
+
+            RuleFor(x => x.ExpansionImage)
+                .NotNull().WithMessage(ValidationConstants.FileNotUploadedErrorMessage);
         }
     }
 }

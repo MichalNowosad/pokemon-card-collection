@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCardAbility.Validators;
-using PokemonCardCollection.Application.Features.CardAbilities.Commands.UpdateCardAbility;
+using PokemonCardCollection.Application.Constants;
+using PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemonCard.Validators;
+using PokemonCardCollection.Application.Interfaces.Infrastructure;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 using System.Net;
-using PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemonCard.Validators;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemonCard
 {
@@ -12,12 +12,15 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemo
     {
         private readonly IPokemonCardRepository _pokemonCardRepository;
         private readonly ICardAttackRepository _cardAttackRepository;
+        private readonly IFileService _fileService;
 
         public UpdatePokemonCardCommandHandler(IPokemonCardRepository pokemonCardRepository,
-            ICardAttackRepository cardAttackRepository)
+            ICardAttackRepository cardAttackRepository,
+            IFileService fileService)
         {
             _pokemonCardRepository = pokemonCardRepository ?? throw new ArgumentNullException(nameof(pokemonCardRepository));
             _cardAttackRepository = cardAttackRepository ?? throw new ArgumentNullException(nameof(cardAttackRepository));
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task<UpdatePokemonCardCommandResponse> Handle(UpdatePokemonCardCommand request, CancellationToken cancellationToken)
@@ -37,6 +40,9 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemo
 
             if (pokemonCardToUpdate != null)
             {
+                _fileService.DeleteFile(pokemonCardToUpdate.FileName, FileConstants.CardFolderName);
+                var fileNameDto = await _fileService.SaveFile(request.PokemonCardImage, FileConstants.CardFolderName);
+
                 pokemonCardToUpdate.Name = pokemonCardDto.Name;
                 pokemonCardToUpdate.Number = pokemonCardDto.Number;
                 pokemonCardToUpdate.Rarity = pokemonCardDto.Rarity;
@@ -47,6 +53,8 @@ namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdatePokemo
                 pokemonCardToUpdate.EnergyType = pokemonCardDto.EnergyType;
                 pokemonCardToUpdate.AbilityId = pokemonCardDto.AbilityId;
                 pokemonCardToUpdate.Attacks = await _cardAttackRepository.GetByIds(pokemonCardDto.AttackIds).ToListAsync(cancellationToken: cancellationToken);
+                pokemonCardToUpdate.FileName = fileNameDto.FileName;
+                pokemonCardToUpdate.DisplayFileName = fileNameDto.DisplayFileName;
 
                 await _pokemonCardRepository.SaveChangesAsync();
             }

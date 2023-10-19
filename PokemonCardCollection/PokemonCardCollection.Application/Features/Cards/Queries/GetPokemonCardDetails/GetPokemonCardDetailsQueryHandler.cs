@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PokemonCardCollection.Application.Constants;
+using PokemonCardCollection.Application.Interfaces.Infrastructure;
 using PokemonCardCollection.Application.Interfaces.Persistence;
 
 namespace PokemonCardCollection.Application.Features.Cards.Queries.GetPokemonCardDetails
@@ -7,10 +9,13 @@ namespace PokemonCardCollection.Application.Features.Cards.Queries.GetPokemonCar
     public class GetPokemonCardDetailsQueryHandler : IRequestHandler<GetPokemonCardDetailsQuery, PokemonCardDetailsDto>
     {
         private readonly IPokemonCardRepository _pokemonCardRepository;
+        private readonly IFileService _fileService;
 
-        public GetPokemonCardDetailsQueryHandler(IPokemonCardRepository pokemonCardRepository)
+        public GetPokemonCardDetailsQueryHandler(IPokemonCardRepository pokemonCardRepository,
+            IFileService fileService)
         {
             _pokemonCardRepository = pokemonCardRepository ?? throw new ArgumentNullException(nameof(pokemonCardRepository));
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
         public async Task<PokemonCardDetailsDto> Handle(GetPokemonCardDetailsQuery request, CancellationToken cancellationToken)
@@ -38,8 +43,12 @@ namespace PokemonCardCollection.Application.Features.Cards.Queries.GetPokemonCar
                     Name = a.Name,
                     Description = a.Description,
                     Power = a.Power
-                }) : null
+                }) : null,
+                FileName = c.FileName,
+                DisplayFileName = c.DisplayFileName
             }).FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken: cancellationToken);
+
+            pokemonCard.FileStream = await _fileService.GetFileStream(pokemonCard.FileName, FileConstants.CardFolderName);
 
             return pokemonCard;
         }

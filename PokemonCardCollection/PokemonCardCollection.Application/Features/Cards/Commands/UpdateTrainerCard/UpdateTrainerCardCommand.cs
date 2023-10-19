@@ -1,14 +1,18 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PokemonCardCollection.Application.Features.Cards.Commands.UpdateTrainerCard
 {
     public class UpdateTrainerCardCommand : IRequest<UpdateTrainerCardCommandResponse>
     {
-        public UpdateTrainerCardDto TrainerCard { get; set; } = new UpdateTrainerCardDto();
+        public UpdateTrainerCardCommand(UpdateTrainerCardDto trainerCard, IFormFile trainerCardImage)
+        {
+            TrainerCard = trainerCard;
+            TrainerCardImage = trainerCardImage;
+        }
+
+        public UpdateTrainerCardDto TrainerCard { get; set; }
+        public IFormFile TrainerCardImage { get; set; }
+
     }
 }

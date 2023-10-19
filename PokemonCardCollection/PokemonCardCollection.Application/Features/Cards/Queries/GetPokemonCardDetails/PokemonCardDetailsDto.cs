@@ -1,8 +1,9 @@
-﻿using PokemonCardCollection.Domain.Enums;
+﻿using PokemonCardCollection.Application.Models.File;
+using PokemonCardCollection.Domain.Enums;
 
 namespace PokemonCardCollection.Application.Features.Cards.Queries.GetPokemonCardDetails
 {
-    public class PokemonCardDetailsDto
+    public class PokemonCardDetailsDto : FileDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
