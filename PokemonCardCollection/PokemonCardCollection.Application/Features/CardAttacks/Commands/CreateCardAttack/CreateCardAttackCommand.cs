@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Commands.Create
 {
     public class CreateCardAttackCommand : IRequest<CreateCardAttackCommandResponse>
     {
-        public CreateCardAttackDto CardAttack { get; set; } = new CreateCardAttackDto();
+        public CreateCardAttackCommand(CreateCardAttackDto cardAttack)
+        {
+            CardAttack = cardAttack;
+        }
+
+        public CreateCardAttackDto CardAttack { get; set; }
     }
 }
