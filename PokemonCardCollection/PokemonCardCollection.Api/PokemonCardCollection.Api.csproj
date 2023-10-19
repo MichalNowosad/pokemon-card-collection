@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PokemonCardCollection.Application\PokemonCardCollection.Application.csproj" />
+    <ProjectReference Include="..\PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj" />
+    <ProjectReference Include="..\PokemonCardCollection.Persistence\PokemonCardCollection.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

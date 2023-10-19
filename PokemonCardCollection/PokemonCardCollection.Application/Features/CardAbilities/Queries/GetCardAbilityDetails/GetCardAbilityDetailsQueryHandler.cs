@@ -17,12 +17,12 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCa
         public async Task<CardAbilityDetailsDto> Handle(GetCardAbilityDetailsQuery request, CancellationToken cancellationToken)
         {
             var cardAbility = await _cardAbilityRepository.GetAllAsync()
-                .Select(a => new CardAbility
+                .Select(a => new CardAbilityDetailsDto
                 {
                     Id = a.Id,
                     Description = a.Description,
                     Name = a.Name
-                }).FirstOrDefaultAsync(a => a.Id == request.CardAttackId);
+                }).FirstOrDefaultAsync(a => a.Id == request.Id);
 
             return cardAbility;
         }
