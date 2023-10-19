@@ -9,7 +9,7 @@ namespace PokemonCardCollection.Api
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddApplicationServices();
-            builder.Services.AddInfrastructureService(builder.Configuration);
+            builder.Services.AddInfrastructureService();
             builder.Services.AddPersistenceServices(builder.Configuration);
 
             builder.Services.AddControllers();
