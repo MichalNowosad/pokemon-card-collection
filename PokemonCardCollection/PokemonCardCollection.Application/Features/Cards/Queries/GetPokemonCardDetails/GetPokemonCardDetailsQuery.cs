@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.Cards.Queries.GetPokemonCar
 {
     public class GetPokemonCardDetailsQuery : IRequest<PokemonCardDetailsDto>
     {
+        public GetPokemonCardDetailsQuery(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; set; }
     }
 }
