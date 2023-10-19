@@ -4,6 +4,11 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCa
 {
     public class GetCardAbilityDetailsQuery : IRequest<CardAbilityDetailsDto>
     {
+        public GetCardAbilityDetailsQuery(Guid id)
+        {
+            Id = id;
+        }
+
         public Guid Id { get; set; }
     }
 }

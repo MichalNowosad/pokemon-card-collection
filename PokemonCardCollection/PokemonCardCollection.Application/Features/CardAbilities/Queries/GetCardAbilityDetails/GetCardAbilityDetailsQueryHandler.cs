@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PokemonCardCollection.Application.Interfaces.Persistence;
-using PokemonCardCollection.Domain.Entities;
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCardAbilityDetails
 {
