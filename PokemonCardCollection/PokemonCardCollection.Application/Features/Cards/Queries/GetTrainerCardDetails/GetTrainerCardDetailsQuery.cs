@@ -2,7 +2,7 @@
 
 namespace PokemonCardCollection.Application.Features.Cards.Queries.GetTrainerCardDetails
 {
-    public class GetTrainerCardDetailsQuery : IRequest<TrainerCardDetailsDto>
+    public class GetTrainerCardDetailsQuery : IRequest<GetTrainerCardDetailsQueryResponse>
     {
         public GetTrainerCardDetailsQuery(Guid id)
         {

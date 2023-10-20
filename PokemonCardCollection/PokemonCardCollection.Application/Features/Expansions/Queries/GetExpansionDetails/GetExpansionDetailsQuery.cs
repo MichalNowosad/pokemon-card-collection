@@ -2,7 +2,7 @@
 
 namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpansionDetails
 {
-    public class GetExpansionDetailsQuery : IRequest<ExpansionDetailsDto>
+    public class GetExpansionDetailsQuery : IRequest<GetExpansionDetailsQueryResponse>
     {
         public GetExpansionDetailsQuery(Guid id)
         {

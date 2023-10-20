@@ -4,7 +4,7 @@ using PokemonCardCollection.Application.Interfaces.Persistence;
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCardAbilitiesOverview
 {
-    public class GetCardAbilitiesOverviewQueryHandler : IRequestHandler<GetCardAbilitiesOverviewQuery, IEnumerable<CardAbilityOverviewDto>>
+    public class GetCardAbilitiesOverviewQueryHandler : IRequestHandler<GetCardAbilitiesOverviewQuery, GetCardAbilitiesOverviewQueryResponse>
     {
         private readonly ICardAbilityRepository _cardAbilityRepository;
 
@@ -13,14 +13,15 @@ namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCa
             _cardAbilityRepository = cardAbilityRepository ?? throw new ArgumentNullException(nameof(cardAbilityRepository));
         }
 
-        public async Task<IEnumerable<CardAbilityOverviewDto>> Handle(GetCardAbilitiesOverviewQuery request, CancellationToken cancellationToken)
+        public async Task<GetCardAbilitiesOverviewQueryResponse> Handle(GetCardAbilitiesOverviewQuery request, CancellationToken cancellationToken)
         {
-            var cardAbilities = _cardAbilityRepository.GetAllAsync();
+            var cardAbilities = await _cardAbilityRepository.GetAllAsync()
+                .Select(a => new CardAbilityOverviewDto
+                {
+                    Name = a.Name
+                }).ToListAsync(cancellationToken: cancellationToken);
 
-            return await cardAbilities.Select(a => new CardAbilityOverviewDto
-            {
-                Name = a.Name
-            }).ToListAsync(cancellationToken: cancellationToken);
+            return new GetCardAbilitiesOverviewQueryResponse(cardAbilities);
         }
     }
 }

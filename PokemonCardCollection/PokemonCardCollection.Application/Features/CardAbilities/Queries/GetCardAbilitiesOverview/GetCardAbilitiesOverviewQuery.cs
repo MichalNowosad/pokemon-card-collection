@@ -2,7 +2,7 @@
 
 namespace PokemonCardCollection.Application.Features.CardAbilities.Queries.GetCardAbilitiesOverview
 {
-    public class GetCardAbilitiesOverviewQuery : IRequest<IEnumerable<CardAbilityOverviewDto>>
+    public class GetCardAbilitiesOverviewQuery : IRequest<GetCardAbilitiesOverviewQueryResponse>
     {
     }
 }
