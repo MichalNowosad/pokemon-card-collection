@@ -1,4 +1,5 @@
-﻿using PokemonCardCollection.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using PokemonCardCollection.Application;
 using PokemonCardCollection.Infrastructure;
 using PokemonCardCollection.Persistence;
 
@@ -34,6 +35,17 @@ namespace PokemonCardCollection.Api
             app.UseCors("Open");
 
             app.MapControllers();
+
+            return app;
+        }
+
+        public static WebApplication ConfigureDatabase(this WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<PokemonCardCollectionDbContext>();
+                context.Database.Migrate();
+            }
 
             return app;
         }
