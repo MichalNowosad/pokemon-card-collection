@@ -6,7 +6,7 @@ using PokemonCardCollection.Application.Interfaces.Persistence;
 
 namespace PokemonCardCollection.Application.Features.Cards.Queries.GetTrainerCardDetails
 {
-    public class GetTrainerCardDetailsQueryHandler : IRequestHandler<GetTrainerCardDetailsQuery, TrainerCardDetailsDto>
+    public class GetTrainerCardDetailsQueryHandler : IRequestHandler<GetTrainerCardDetailsQuery, GetTrainerCardDetailsQueryResponse>
     {
         private readonly ITrainerCardRepository _trainerCardRepository;
         private readonly IFileService _fileService;
@@ -18,7 +18,7 @@ namespace PokemonCardCollection.Application.Features.Cards.Queries.GetTrainerCar
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
-        public async Task<TrainerCardDetailsDto> Handle(GetTrainerCardDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<GetTrainerCardDetailsQueryResponse> Handle(GetTrainerCardDetailsQuery request, CancellationToken cancellationToken)
         {
             var allTrainerCards = _trainerCardRepository.GetAllAsync();
 
@@ -36,7 +36,7 @@ namespace PokemonCardCollection.Application.Features.Cards.Queries.GetTrainerCar
 
             trainerCard.FileStream = await _fileService.GetFileStream(trainerCard.FileName, FileConstants.CardFolderName);
 
-            return trainerCard;
+            return new GetTrainerCardDetailsQueryResponse(trainerCard);
         }
     }
 }

@@ -4,7 +4,7 @@ using PokemonCardCollection.Application.Interfaces.Persistence;
 
 namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCardAttackDetails
 {
-    public class GetCardAttackDetailsQueryHandler : IRequestHandler<GetCardAttackDetailsQuery, CardAttackDetailsDto>
+    public class GetCardAttackDetailsQueryHandler : IRequestHandler<GetCardAttackDetailsQuery, GetCardAttackDetailsQueryResponse>
     {
         private readonly ICardAttackRepository _cardAttackRepository;
 
@@ -13,7 +13,7 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCard
             _cardAttackRepository = cardAttackRepository ?? throw new ArgumentNullException(nameof(cardAttackRepository));
         }
 
-        public async Task<CardAttackDetailsDto> Handle(GetCardAttackDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<GetCardAttackDetailsQueryResponse> Handle(GetCardAttackDetailsQuery request, CancellationToken cancellationToken)
         {
             var cardAttack = await _cardAttackRepository.GetAllAsync()
                 .Select(a => new CardAttackDetailsDto
@@ -24,7 +24,7 @@ namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCard
                     Power = a.Power
                 }).FirstOrDefaultAsync(a => a.Id == request.Id);
 
-            return cardAttack;
+            return new GetCardAttackDetailsQueryResponse(cardAttack);
         }
     }
 }

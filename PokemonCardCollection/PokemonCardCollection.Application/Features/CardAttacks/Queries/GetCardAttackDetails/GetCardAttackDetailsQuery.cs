@@ -2,7 +2,7 @@
 
 namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCardAttackDetails
 {
-    public class GetCardAttackDetailsQuery : IRequest<CardAttackDetailsDto>
+    public class GetCardAttackDetailsQuery : IRequest<GetCardAttackDetailsQueryResponse>
     {
         public GetCardAttackDetailsQuery(Guid id)
         {

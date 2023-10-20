@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using PokemonCardCollection.Application.Constants;
 using PokemonCardCollection.Application.Interfaces.Infrastructure;
 using PokemonCardCollection.Application.Interfaces.Persistence;
-using PokemonCardCollection.Domain.Entities;
 
 namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpansionDetails
 {
-    public class GetExpansionDetailsQueryHandler : IRequestHandler<GetExpansionDetailsQuery, ExpansionDetailsDto>
+    public class GetExpansionDetailsQueryHandler : IRequestHandler<GetExpansionDetailsQuery, GetExpansionDetailsQueryResponse>
     {
         private readonly IExpansionRepository _expansionRepository;
         private readonly IFileService _fileService;
@@ -16,9 +15,10 @@ namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpan
             IFileService fileService)
         {
             _expansionRepository = expansionRepository ?? throw new ArgumentNullException(nameof(expansionRepository));
-            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));        }
+            _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
+        }
 
-        public async Task<ExpansionDetailsDto> Handle(GetExpansionDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<GetExpansionDetailsQueryResponse> Handle(GetExpansionDetailsQuery request, CancellationToken cancellationToken)
         {
             var allExpansions = _expansionRepository.GetAllAsync();
 
@@ -34,7 +34,7 @@ namespace PokemonCardCollection.Application.Features.Expansions.Queries.GetExpan
 
             expansion.FileStream = await _fileService.GetFileStream(expansion.FileName, FileConstants.ExpansionFolderName);
 
-            return expansion;
+            return new GetExpansionDetailsQueryResponse(expansion);
         }
     }
 }

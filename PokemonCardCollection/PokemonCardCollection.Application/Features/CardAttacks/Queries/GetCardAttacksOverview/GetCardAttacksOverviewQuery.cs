@@ -2,7 +2,7 @@
 
 namespace PokemonCardCollection.Application.Features.CardAttacks.Queries.GetCardAttacksOverview
 {
-    public class GetCardAttacksOverviewQuery : IRequest<IEnumerable<CardAttackOverviewDto>>
+    public class GetCardAttacksOverviewQuery : IRequest<GetCardAttacksOverviewQueryResponse>
     {
     }
 }

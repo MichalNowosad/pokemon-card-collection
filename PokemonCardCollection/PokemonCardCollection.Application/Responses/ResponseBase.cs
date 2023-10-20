@@ -8,6 +8,7 @@ namespace PokemonCardCollection.Application.Responses
         {
             StatusCode = HttpStatusCode.OK;
         }
+
         public ResponseBase(string message)
         {
             StatusCode = HttpStatusCode.OK;
