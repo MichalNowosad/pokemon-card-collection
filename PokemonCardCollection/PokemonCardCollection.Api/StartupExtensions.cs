@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using PokemonCardCollection.Application;
 using PokemonCardCollection.Infrastructure;
 using PokemonCardCollection.Persistence;
@@ -35,6 +36,15 @@ namespace PokemonCardCollection.Api
             app.UseCors("Open");
 
             app.MapControllers();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "../PokemonCardCollection.UI/dist";
+                if (app.Environment.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
 
             return app;
         }
