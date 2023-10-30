@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Persi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Infrastructure", "PokemonCardCollection.Infrastructure\PokemonCardCollection.Infrastructure.csproj", "{BA176A17-2377-4230-BF1A-85E32EB2FC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonCardCollection.Api", "PokemonCardCollection.Api\PokemonCardCollection.Api.csproj", "{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonCardCollection.Api", "PokemonCardCollection.Api\PokemonCardCollection.Api.csproj", "{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "PokemonCardCollection.UI", "PokemonCardCollection.UI\PokemonCardCollection.UI.esproj", "{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,12 @@ Global
 		{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +65,7 @@ Global
 		{8FAA6BC6-E476-455D-A48E-6AA7AF51A8EC} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
 		{BA176A17-2377-4230-BF1A-85E32EB2FC44} = {4B96A4A4-333D-4C1C-AA6F-D9264F65F9FB}
 		{1187DFE7-6CF2-40C3-95FD-0ACBFB30A4E2} = {1232AE7E-1AEE-43E3-B24F-1A65938B7B90}
+		{C6FFFC12-61BE-4EE3-9FA8-68749CD15CAD} = {DF48BAE6-AA5C-42C4-8C5C-316EC3E77D0F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C0D9546-9A6F-4DE9-AABC-3C4C1F64267C}
