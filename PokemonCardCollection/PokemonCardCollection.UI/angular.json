@@ -2,8 +2,13 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
-    "PokemonCardCollection.UI": {
+    "PokemonCardCollection": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -25,7 +30,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -60,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "PokemonCardCollection.UI:build:production"
+              "browserTarget": "PokemonCardCollection:build:production"
             },
             "development": {
-              "browserTarget": "PokemonCardCollection.UI:build:development"
+              "browserTarget": "PokemonCardCollection:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -74,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "PokemonCardCollection.UI:build"
+            "browserTarget": "PokemonCardCollection:build"
           }
         },
         "test": {
@@ -90,7 +95,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
