@@ -1,0 +1,27 @@
+.app-layout {
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'side-menu content content content content content'
+        'footer footer footer footer footer footer';
+    grid-template-rows: 3fr 16fr 2fr;
+    grid-template-columns: 1fr 6fr;
+    height: 100%;
+
+    .header {
+        grid-area: header;
+    }
+        
+    .side-menu { 
+        grid-area: side-menu;
+    }
+        
+    .content {
+        grid-area: content;
+    }
+        
+    .footer {
+        grid-area: footer;
+    }
+}
+  
